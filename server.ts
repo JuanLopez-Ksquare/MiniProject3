@@ -7,7 +7,10 @@ type BalanceHistory = {
 }
 
 //Database variables
-let currentBalance = 220;
+let balanceHistory : BalanceHistory[] = [];
+let currentBalance: number = 220;
+
+
 
 
 //Server variables
