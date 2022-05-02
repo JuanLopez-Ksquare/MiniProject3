@@ -12,7 +12,7 @@ let currentBalance: number = 0;
 
 //Server variables
 const app: Express = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(express.json());
 
@@ -26,11 +26,23 @@ app.get("/v1/balance", (req, res) =>{
 app.post("/v1/transaction", (req, res) =>{
 
     try{
-        currentBalance += req.body.incomingAmount;
-        const history : BalanceHistory = {amount: req.body.incomingAmount, motive: req.body.motive}
-        balanceHistory.push(history);
-        //console.log(balanceHistory);
-        res.sendStatus(200);
+        if(req.body.incomingAmount  < 0)
+        {
+            if(req.body.incomingAmount* -1 <= currentBalance){
+                currentBalance += req.body.incomingAmount;
+                const history : BalanceHistory = {amount: req.body.incomingAmount, motive: req.body.motive}
+                balanceHistory.push(history);
+                res.sendStatus(200);
+            }
+            res.send("Not enough balance");
+        }
+        else{
+            currentBalance += req.body.incomingAmount;
+            const history : BalanceHistory = {amount: req.body.incomingAmount, motive: req.body.motive}
+            balanceHistory.push(history);
+            res.sendStatus(200);
+        }
+
     }catch{
         res.sendStatus(500);
     }

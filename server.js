@@ -19,11 +19,23 @@ app.get("/v1/balance", (req, res) => {
 //Add transaction
 app.post("/v1/transaction", (req, res) => {
     try {
-        currentBalance += req.body.incomingAmount;
-        const history = { amount: req.body.incomingAmount, motive: req.body.motive };
-        balanceHistory.push(history);
-        //console.log(balanceHistory);
-        res.sendStatus(200);
+        if (req.body.incomingAmount < 0) {
+            if (req.body.incomingAmount * -1 <= currentBalance) {
+                currentBalance += req.body.incomingAmount;
+                const history = { amount: req.body.incomingAmount, motive: req.body.motive };
+                balanceHistory.push(history);
+                //console.log(balanceHistory);
+                res.sendStatus(200);
+            }
+            res.send("Not enough balance");
+        }
+        else {
+            currentBalance += req.body.incomingAmount;
+            const history = { amount: req.body.incomingAmount, motive: req.body.motive };
+            balanceHistory.push(history);
+            //console.log(balanceHistory);
+            res.sendStatus(200);
+        }
     }
     catch (_a) {
         res.sendStatus(500);
