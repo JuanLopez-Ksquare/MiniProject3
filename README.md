@@ -16,3 +16,7 @@
 | 8.The app must have a form element that will have the following fields 'Description' of type text and 'Amount' of type number |     |  x |
 | 9.The app must have a label that explains to the user what the difference between positive and negative numbers is|  x   |      |
 | 10.The app must have a label that explains to the user what the difference between positive and negative numbers is|     |   x   |
+
+Pages: https://juanlopez-ksquare.github.io/MiniProject3/
+
+APIserver: https://budgetapp-itk.herokuapp.com

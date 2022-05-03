@@ -20,6 +20,9 @@ const postNewBalance = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ incomingAmount, motive }),
     });
+
+    document.getElementById("expense-title-input").value = "";
+    document.getElementById("expense-amount-input").value = "";
   }
 };
 
