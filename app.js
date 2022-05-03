@@ -1,35 +1,34 @@
+const getBalance = async () => {
+  const url = "https://budgetapp-itk.herokuapp.com/v1/balance";
+  const data = await fetch(url, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  const res = await data.json();
+  document.getElementById("balanceText").innerHTML = res.currentBalance;
+};
 
-  const elementAmount = document.getElementById("expense-amount-input");
-  const postNewBalanace = async () => {
-
+const postNewBalance = async () => {
   const url = "https://budgetapp-itk.herokuapp.com/v1/transaction";
 
-
-
   const motive = document.getElementById("expense-title-input").value;
+  const incomingAmount = +document.getElementById("expense-amount-input").value;
 
-  const amount = +elementAmount.value;
-
-
-
-  console.log(amount, motive);
-
-
-
-  if (amount !== "" && motive !== "") {
-
+  if (incomingAmount !== 0 && motive !== "") {
     await fetch(url, {
-
       method: "POST",
-
-      headers: { "Content-Type": "aplication/json" },
-
-      body: JSON.stringify({ incomingAmount: amount, motive: motive }),
-
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ incomingAmount, motive }),
     });
-
   }
-
- 
-
 };
+
+const clearBalanceAPI = async () => {
+  const url = "https://budgetapp-itk.herokuapp.com/v1/clear";
+  await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  });
+};
+
+clearBalanceAPI();
